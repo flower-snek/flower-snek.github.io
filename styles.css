@@ -12,15 +12,16 @@ table, tr, td{
 	border-collapse: collapse;
 }
 
+tr.headers1 td, tr.headers2 td{
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
 td{
 	text-align: right;
 	min-width: 60px;
 	white-space: nowrap;
 	padding: 5px;
-}
-
-tr.headers{
-	text-align: center;
 }
 
 #vg{
@@ -43,4 +44,14 @@ tr.headers{
 
 #vb{
 	background: #FF8888;
+}
+
+.acknowledgements{
+	border-top: 2px solid black;
+	font-style: italic;
+	text-align: center;
+}
+
+.mode, .headers2{
+	cursor: pointer;
 }

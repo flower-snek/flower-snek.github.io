@@ -29,7 +29,8 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		const b = -0.15
 		const vb = -0.3
 		items.forEach((item) => {
-			console.log(item);
+			if(item.name == "Spirit Socks") console.log(item);
+			//console.log(item);
 			tr = document.createElement("tr");
 			// first, item name and owner, easy
 			itemname = document.createElement("td");
@@ -42,7 +43,7 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 			//first i'm creating a list of adjustments. adjustments are attributes on each suffix, root, prefix, etc.
 			var adjustments = [];
 			//first up, preprefix (none exist rn but you never know)
-			var preprefix = item.preprefix;
+			var preprefix = item.prePrefix;
 			if(preprefix != null){
 				for(i in preprefix.adjustments){
 					adjustments.push(preprefix.adjustments[i]);
@@ -58,11 +59,11 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 					}
 				}
 			}
-			//postfix
-			var postfix = item.postfix
-			if(postfix != null){
-				for(j in postfix.adjustments){
-					adjustments.push(postfix.adjustments[j]);
+			//postprefix
+			var postprefix = item.postPrefix
+			if(postprefix != null){
+				for(j in postprefix.adjustments){
+					adjustments.push(postprefix.adjustments[j]);
 				}
 			}
 			//root
@@ -81,8 +82,10 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 				}
 			}
 			//there are 26 of them (8 batting, 6 pitching, 5 running, 5 defense, and 2 vibes)
-			for(var i = 0; i < 26; i++){
-				// haha hardcoded, they better not add more
+			var order = [0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 16, 17, 18, 19, 9, 10, 11, 12, 13, 21, 22, 23, 24, 25, 8, 20]
+			for(var h = 0; h < 26; h++){
+				//doing it in a specific order that is NOT 0-25 so i do this awful thing:
+				var i = order[h]
 				var statValue = 0; // 0 if it doesnt exist
 				
 				//loop through the adjustments
@@ -144,7 +147,7 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		//console.log(table);
 	})
 	.catch((err) => {
-		
+		//idk????????????????????
 	});
 
 
@@ -167,7 +170,7 @@ function sortTable(n) {
 		rows = table.rows;
 		/* Loop through all table rows (except the
 		first, which contains table headers): */
-		for (i = 1; i < (rows.length - 1); i++) {
+		for (i = 2; i < (rows.length - 1); i++) {
 			// Start by saying there should be no switching:
 			shouldSwitch = false;
 			/* Get the two elements you want to compare,
@@ -177,14 +180,31 @@ function sortTable(n) {
 			/* Check if the two rows should switch place,
 			based on the direction, asc or desc: */
 			if (dir == "asc") {
-				if (Number(x.innerHTML) > Number(y.innerHTML)) {
-					shouldSwitch = true;
-					break;
+				//i added some hardcoding for names vs numbers - the first two will ALWAYS be names, the last 26 ALWAYS numbers
+				if(n <= 1){
+					if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+						// If so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}else{
+					if (Number(x.innerHTML) > Number(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
 				}
 			} else if (dir == "desc") {
-				if (Number(x.innerHTML) < Number(y.innerHTML)) {
-					shouldSwitch = true;
-					break;
+				if(n <= 1){
+					if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+						// If so, mark as a switch and break the loop:
+						shouldSwitch = true;
+						break;
+					}
+				}else{
+					if (Number(x.innerHTML) < Number(y.innerHTML)) {
+						shouldSwitch = true;
+						break;
+					}
 				}
 			}
 		}
@@ -204,5 +224,9 @@ function sortTable(n) {
 			}
 		}
 	}
+}
+
+function toggleMode(){
+	
 }
 
