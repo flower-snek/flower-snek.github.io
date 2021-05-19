@@ -1,6 +1,14 @@
-var table = document.getElementById("table");
-// i honestly stole this function shell off something i found on google
+/**
 
+
+obfuscating code is for losers (that probably know what they're doing (as opposed to me (who doesn't know what they're doing))), feel free to make fun of this code (:
+
+
+**/
+
+var table = document.getElementById("table");
+
+// i honestly stole this function shell off something i found on google
 fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 	.then((response) => {
 		return response.json()
@@ -144,6 +152,7 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 			table.appendChild(tr);
 		});
 		//console.log(table);
+		document.getElementById("loading").innerHTML = "";
 	})
 	.catch((err) => {
 		//idk????????????????????

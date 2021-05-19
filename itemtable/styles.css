@@ -1,0 +1,61 @@
+html {
+	font-family: "Arial";
+	background: #ddd;
+}
+
+table {
+	overflow: scroll;
+	table-layout: auto;
+	border-collapse: collapse;
+}
+
+td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+tr.headers1 td, tr.headers2 td{
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
+td{
+	text-align: right;
+	min-width: 60px;
+	white-space: nowrap;
+	padding: 5px;
+}
+
+.vg{
+	background: #7d7;
+}
+
+.g{
+	background: #9d9;
+}
+
+.sg{
+	background: #bdb;
+}
+
+.sb{
+	background: #dbb;
+}
+
+.b{
+	background: #d99;
+}
+
+.vb{
+	background: #d77;
+}
+
+.acknowledgements{
+	border-top: 2px solid black;
+	font-style: italic;
+	text-align: center;
+}
+
+#mode, .headers2{
+	cursor: pointer;
+}

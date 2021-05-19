@@ -1,0 +1,27 @@
+body {
+	background: #ddd;
+	font-family: "Arial";
+}
+
+h1, h3 {
+	text-align: center;
+}
+
+.item {
+	width: 50%;
+	align: center;
+	margin: auto;
+	line-height: 1;
+}
+
+.item h4{
+	padding: 10px;
+	font-size: 24px;
+	background: #333;
+	color: #ddd;
+	text-align: center;
+}
+
+.item h4:hover{
+	background: #000;
+}
