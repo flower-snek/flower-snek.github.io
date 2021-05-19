@@ -29,7 +29,6 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		const b = -0.15
 		const vb = -0.3
 		items.forEach((item) => {
-			if(item.name == "Spirit Socks") console.log(item);
 			//console.log(item);
 			tr = document.createElement("tr");
 			// first, item name and owner, easy
@@ -102,41 +101,41 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 				td.innerHTML = statValue.toFixed(4);
 				if(i != 0 && i != 6){ // not path and trag
 					if(statValue >= vg){
-						td.setAttribute('id', 'vg');
+						td.setAttribute('class', 'vg');
 					}
 					else if(statValue >= g){
-						td.setAttribute('id', 'g');
+						td.setAttribute('class', 'g');
 					}
 					else if(statValue > 0){
-						td.setAttribute('id', 'sg');
+						td.setAttribute('class', 'sg');
 					}
 					else if(statValue <= vb){
-						td.setAttribute('id', 'vb');
+						td.setAttribute('class', 'vb');
 					}
 					else if(statValue <= b){
-						td.setAttribute('id', 'b');
+						td.setAttribute('class', 'b');
 					}
 					else if(statValue < 0){
-						td.setAttribute('id', 'sb');
+						td.setAttribute('class', 'sb');
 					}
 				}else{
 					if(statValue >= vg){
-						td.setAttribute('id', 'vb');
+						td.setAttribute('class', 'vb');
 					}
 					else if(statValue >= g){
-						td.setAttribute('id', 'b');
+						td.setAttribute('class', 'b');
 					}
 					else if(statValue > 0){
-						td.setAttribute('id', 'sb');
+						td.setAttribute('class', 'sb');
 					}
 					else if(statValue <= vb){
-						td.setAttribute('id', 'vg');
+						td.setAttribute('class', 'vg');
 					}
 					else if(statValue <= b){
-						td.setAttribute('id', 'g');
+						td.setAttribute('class', 'g');
 					}
 					else if(statValue < 0){
-						td.setAttribute('id', 'sg');
+						td.setAttribute('class', 'sg');
 					}
 				}
 				tr.appendChild(td)
@@ -225,8 +224,37 @@ function sortTable(n) {
 		}
 	}
 }
-
-function toggleMode(){
-	
+// for night/day, and colorblind/not eventually:
+const classes =		["vg"  , "g"   , "sg"  , "sb"  , "b"   , "vb"  ];
+const day = 		["#7d7", "#9d9", "#bdb", "#dbb", "#d99", "#d77"];
+const night = 		["#373", "#252", "#131", "#311", "#522", "#733"];
+function toggleNightMode(){
+	var mode = document.getElementById("mode");
+	if(mode.className == "day"){
+		console.log("day -> night");
+		//day -> night
+		var page = document.getElementsByTagName("html")[0];
+		page.style.backgroundColor = "#111";
+		page.style.color = "#ddd";
+		Array.from(document.getElementsByTagName("td")).forEach(element => element.style.borderColor = "#999");
+		for(i in classes){
+			Array.from(document.getElementsByClassName(classes[i])).forEach(element => element.style.backgroundColor = night[i]);
+		}
+		mode.innerHTML = "&#127773;"
+		mode.setAttribute("class", "night");
+	}else{
+		//night -> day
+		console.log("night -> day");
+		var page = document.getElementsByTagName("html")[0];
+		page.style.backgroundColor = "#ddd";
+		page.style.color = "#000";
+		Array.from(document.getElementsByTagName("td")).forEach(element => element.style.borderColor = "#000");
+		for(i in classes){
+			Array.from(document.getElementsByClassName(classes[i])).forEach(element => element.style.backgroundColor = day[i]);
+		}
+		
+		mode.innerHTML = "&#127774;"
+		mode.setAttribute("class", "day");
+	}
 }
 

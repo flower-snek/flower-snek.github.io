@@ -1,13 +1,15 @@
 html {
 	font-family: "Arial";
+	background: #ddd;
 }
 
 table {
 	overflow: scroll;
 	table-layout: auto;
+	border-collapse: collapse;
 }
 
-table, tr, td{
+td{
 	border: 1px solid black;
 	border-collapse: collapse;
 }
@@ -24,26 +26,28 @@ td{
 	padding: 5px;
 }
 
-#vg{
-	background: #88FF88;
+.vg{
+	background: #7d7;
 }
 
-#g{
-	background: #BBFFBB;
-}
-#sg{
-	background: #DDFFDD;
+.g{
+	background: #9d9;
 }
 
-#sb{
-	background: #FFDDDD;
-}
-#b{
-	background: #FFBBBB;
+.sg{
+	background: #bdb;
 }
 
-#vb{
-	background: #FF8888;
+.sb{
+	background: #dbb;
+}
+
+.b{
+	background: #d99;
+}
+
+.vb{
+	background: #d77;
 }
 
 .acknowledgements{
@@ -52,6 +56,6 @@ td{
 	text-align: center;
 }
 
-.mode, .headers2{
+#mode, .headers2{
 	cursor: pointer;
 }
