@@ -1,0 +1,46 @@
+html {
+	font-family: "Arial";
+}
+
+table {
+	overflow: scroll;
+	table-layout: auto;
+}
+
+table, tr, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+td{
+	text-align: right;
+	min-width: 60px;
+	white-space: nowrap;
+	padding: 5px;
+}
+
+tr.headers{
+	text-align: center;
+}
+
+#vg{
+	background: #88FF88;
+}
+
+#g{
+	background: #BBFFBB;
+}
+#sg{
+	background: #DDFFDD;
+}
+
+#sb{
+	background: #FFDDDD;
+}
+#b{
+	background: #FFBBBB;
+}
+
+#vb{
+	background: #FF8888;
+}
