@@ -5,8 +5,61 @@ obfuscating code is for losers (that probably know what they're doing (as oppose
 
 
 **/
-
+const order = [0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 16, 17, 18, 19, 9, 10, 11, 12, 13, 21, 22, 23, 24, 25, 8, 20] // stat display order (makes more sense)
+const FK_STATS_ABB = ["tragc",
+                "buoy",
+                "thwck",
+                "moxie",
+                "divin",
+                "muscl",
+                "path",
+                "mrtyr",
+                "cinna",
+                "thrst",
+                "laser",
+                "cont",
+                "indlg",
+                "frict",
+                "shakes",
+                "supp",
+                "unthwk",
+                "cold",
+                "ovrpwr",
+                "ruth",
+                "press",
+                "omni",
+                "tenac",
+                "watch",
+                "ancap",
+                "chase"] // grabbed from a separate project
 var table = document.getElementById("table");
+
+//set up the table like a not idiot this time
+
+var headers = document.createElement("tr")
+headers.setAttribute("class", "headers2");
+var itemname = document.createElement("td");
+itemname.innerHTML = "Item Name";
+itemname.setAttribute("onClick", "sortTable(0)");
+var owner = document.createElement("td");
+owner.innerHTML = "Owner";
+owner.setAttribute("onClick", "sortTable(1)");
+headers.appendChild(itemname);
+headers.appendChild(owner);
+
+for(i in FK_STATS_ABB){
+	var td = document.createElement("td");
+	td.innerHTML = FK_STATS_ABB[order[i]];
+	td.setAttribute("onClick", "sortTable("+(i+2)+")");
+	headers.appendChild(td);
+}
+
+//var timeCreated = document.createElement("td");
+//timeCreated.innerHTML = "Time created";
+//timeCreated.setAttribute("onClick", "sortTable(28)");
+//headers.appendChild(timeCreated);
+
+table.appendChild(headers);
 
 // i honestly stole this function shell off something i found on google
 fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
@@ -21,8 +74,8 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		//console.log(playerData)
 		var items = [];
 		playerData.forEach((player) => {
-			//console.log(player);
-			thisData = player.data;
+			console.log(player);
+			var thisData = player.data;
 			//console.log(thisData);
 			for(item in thisData.items){
 				thisData.items[item].owner = thisData.name;
@@ -38,10 +91,10 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		const vb = -0.3
 		items.forEach((item) => {
 			//console.log(item);
-			tr = document.createElement("tr");
+			var tr = document.createElement("tr");
 			// first, item name and owner, easy
-			itemname = document.createElement("td");
-			owner = document.createElement("td");
+			var itemname = document.createElement("td");
+			var owner = document.createElement("td");
 			itemname.innerHTML = item.name;
 			owner.innerHTML = item.owner;
 			tr.appendChild(itemname);
@@ -88,8 +141,7 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 					adjustments.push(suffix.adjustments[j]);
 				}
 			}
-			//there are 26 of them (8 batting, 6 pitching, 5 running, 5 defense, and 2 vibes)
-			var order = [0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 16, 17, 18, 19, 9, 10, 11, 12, 13, 21, 22, 23, 24, 25, 8, 20]
+			
 			for(var h = 0; h < 26; h++){
 				//doing it in a specific order that is NOT 0-25 so i do this awful thing:
 				var i = order[h]
@@ -105,7 +157,7 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 				}
 				
 				//finally, make and add the cell.
-				td = document.createElement("td");
+				var td = document.createElement("td");
 				td.innerHTML = statValue.toFixed(4);
 				if(i != 0 && i != 6){ // not path and trag
 					if(statValue >= vg){
