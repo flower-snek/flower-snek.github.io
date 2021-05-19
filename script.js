@@ -1,5 +1,6 @@
 var table = document.getElementById("table");
 // i honestly stole this function shell off something i found on google
+
 fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 	.then((response) => {
 		return response.json()
