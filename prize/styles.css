@@ -11,7 +11,10 @@ h1, h3 {
 	width: 50%;
 	align: center;
 	margin: auto;
-	line-height: 1;
+	line-height: 1.5;
+	background: #bbb;
+	margin-top: 10px;
+	border-radius: 5px;
 }
 
 .item h4{
@@ -20,8 +23,13 @@ h1, h3 {
 	background: #333;
 	color: #ddd;
 	text-align: center;
+	margin: 0;
+	border-radius: 5px;
 }
 
-.item h4:hover{
-	background: #000;
+.stats {
+	padding: 10px;
+}
+p {
+	margin: 0
 }
