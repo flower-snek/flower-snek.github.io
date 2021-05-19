@@ -227,7 +227,7 @@ function sortTable(n) {
 // for night/day, and colorblind/not eventually:
 const classes =		["vg"  , "g"   , "sg"  , "sb"  , "b"   , "vb"  ];
 const day = 		["#7d7", "#9d9", "#bdb", "#dbb", "#d99", "#d77"];
-const night = 		["#373", "#252", "#131", "#311", "#522", "#733"];
+const night = 		["#363", "#252", "#131", "#311", "#522", "#733"];
 function toggleNightMode(){
 	var mode = document.getElementById("mode");
 	if(mode.className == "day"){
@@ -235,8 +235,8 @@ function toggleNightMode(){
 		//day -> night
 		var page = document.getElementsByTagName("html")[0];
 		page.style.backgroundColor = "#111";
-		page.style.color = "#ddd";
-		Array.from(document.getElementsByTagName("td")).forEach(element => element.style.borderColor = "#999");
+		page.style.color = "#999";
+		Array.from(document.getElementsByTagName("td")).forEach(element => element.style.borderColor = "#666");
 		for(i in classes){
 			Array.from(document.getElementsByClassName(classes[i])).forEach(element => element.style.backgroundColor = night[i]);
 		}
