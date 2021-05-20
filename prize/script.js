@@ -46,7 +46,7 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 			//console.log(updateData);
 			if("state" in updateData){
 				if("prizeMatch" in updateData.state){
-					
+					//console.log(updateData.state.prizeMatch);
 					itemId = updateData.state.prizeMatch.itemId; // we'll nab this later
 					//first, some stuff
 					div = document.createElement("div");
@@ -58,12 +58,12 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 					div.appendChild(header);
 					
 					//ok now we're ready:
-					fetch("https://api.sibr.dev/chronicler/v2/entities?type=item&id=" + itemId)
+					fetch("https://cors-proxy.blaseball-reference.com/database/items?ids=" + itemId)
 					.then((response) => {
 						return response.json();
 					}).then((data) => {
-						console.log(data.items[0].data);
-						itemData = data.items[0].data; // we only grabbin one
+						//console.log(data[0]);
+						itemData = data[0]; // we only grabbin one
 						//show the name, and the stats
 						namePara = document.createElement("p");
 						namePara.innerHTML = ("Item name: " + itemData.name);
