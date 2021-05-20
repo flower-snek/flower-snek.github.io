@@ -56,7 +56,7 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 					header = document.createElement("h4");
 					header.innerHTML = "Season " + (updateData.season+1) + " day " + (updateData.day+1) + ", " + updateData.awayTeamName + " at " + updateData.homeTeamName;
 					div.appendChild(header);
-					
+					divs.push(div);
 					//ok now we're ready:
 					fetch("https://cors-proxy.blaseball-reference.com/database/items?ids=" + itemId)
 					.then((response) => {
@@ -145,7 +145,15 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 						dur = document.createElement("p");
 						dur.innerHTML = "Durability: " + durability;
 						statsDiv.appendChild(dur);
-						thisItemDiv = document.getElementById(itemData.id);
+						var itemDivIndex;
+						var thisItemDiv;
+						//console.log(divs.length);
+						for(i in divs){
+							if(divs[i].id == itemData.id) {
+								thisItemDiv = divs[i];
+								itemDivIndex = i;
+							}
+						}
 						thisItemDiv.appendChild(statsDiv);
 					}).catch((err) => {
 						//see other catch below
@@ -153,8 +161,9 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 						dontyellatme.innerHTML = "something went wrong, go yell at snekk or something: <br>" + err; // not too loudly though
 						prizesDiv.appendChild(dontyellatme);
 					});
-					
-					prizesDiv.appendChild(div);
+					if(prizesDiv.childNodes.length < currentNumberOfDivs){
+						prizesDiv.appendChild(div);
+					}
 				}
 			}
 		})
@@ -166,3 +175,13 @@ fetch("https://api.sibr.dev/chronicler/v1/games/updates?search=prize&order=desc"
 		dontyellatme.innerHTML = "something went wrong, go yell at snekk or something: <br>" + err; // not too loudly though
 		prizesDiv.appendChild(dontyellatme);
 	});
+
+const increment = 5;
+var currentNumberOfDivs = increment;
+
+function showMore(){
+	for(var i = 0; i < increment && i + currentNumberOfDivs < divs.length; i++){
+		prizesDiv.appendChild(divs[currentNumberOfDivs + i]);
+	}
+	currentNumberOfDivs += increment;
+}
