@@ -50,7 +50,7 @@ headers.appendChild(owner);
 for(i in FK_STATS_ABB){
 	var td = document.createElement("td");
 	td.innerHTML = FK_STATS_ABB[order[i]];
-	td.setAttribute("onClick", "sortTable("+(i+2)+")");
+	td.setAttribute("onClick", "sortTable("+(parseInt(i)+2)+")");
 	headers.appendChild(td);
 }
 
