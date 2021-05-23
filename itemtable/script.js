@@ -60,7 +60,7 @@ for(i in FK_STATS_ABB){
 //headers.appendChild(timeCreated);
 
 table.appendChild(headers);
-
+var items = [];
 // i honestly stole this function shell off something i found on google
 fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 	.then((response) => {
@@ -72,9 +72,9 @@ fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
 		//also this is the first time ive done actual javascript hi!
 		//goal is to make an array of item objects
 		//console.log(playerData)
-		var items = [];
+		
 		playerData.forEach((player) => {
-			console.log(player);
+			//console.log(player);
 			var thisData = player.data;
 			//console.log(thisData);
 			for(item in thisData.items){
@@ -319,3 +319,19 @@ function toggleNightMode(){
 	}
 }
 
+
+function search(){
+	var query = document.getElementById("searchbox").value;
+	console.log(query);
+	var table = document.getElementById("table");
+	rows = table.getElementsByTagName("tr");
+	for(var i = 2; i < rows.length; i++){
+		var name = rows[i].getElementsByTagName("td")[0].innerHTML;
+		console.log(name + " " + name.search(query));
+		if(name.search(query) == -1){
+			rows[i].style.display = "none";
+		}else{
+			rows[i].style.display = "table-row";
+		}
+	}
+}

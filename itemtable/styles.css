@@ -59,3 +59,8 @@ td{
 #mode, .headers2{
 	cursor: pointer;
 }
+
+#searchArea{
+	position: absolute;
+	right: 20%;
+}

@@ -7,6 +7,10 @@
 	</head>
 	<body>
 		<h1>Blaseball Item Viewer <a class="day" id="mode" onClick = "toggleNightMode()">&#127774;</a></h1>
+		<div id="searchArea">
+			<input type="text" id="searchbox" value="Search">
+			<button onClick="search()">Search</button>
+		</div>
 		<p>View the apple stats of every item in the league!</p>
 		<p>(click on headers to sort that column, sorry it's kinda slow)</p>
 		<table id="table">
