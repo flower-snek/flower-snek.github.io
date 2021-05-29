@@ -4,6 +4,7 @@ html{
 }
 body {
 	overflow: hidden;
+	margin: 0;
 }
 td, p{
 	font-family: Courier New, monospace;
