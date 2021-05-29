@@ -2,7 +2,9 @@ html{
 	background-color: rgb(0, 0, 0);
 	color: #ddd;
 }
-
+body {
+	overflow: hidden;
+}
 td, p{
 	font-family: Courier New, monospace;
 	font-size: 1vw;
