@@ -28,7 +28,7 @@ pre{
 
 .the_site {
 	/* the horizontal strip */
-	background-color: #111;
+	background-color: #222;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -60,7 +60,7 @@ pre{
 	animation-fill-mode: forwards;
 }
 .the_info{
-	background-color: #111;
+	background-color: #222;
 	width: 98%;
 	position: relative;
 	top: 10vh;
@@ -97,10 +97,11 @@ h3{
 .lonks{
 	margin-top: 10px;
 }
+
 @keyframes typing {
   from { width: 0 }
   to { width: 100% }
-} /* shoutout to websites */
+}
 
 @keyframes fade {
 	from {
