@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF=8">
+		<title>Build an Item Workshop</title>
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<img src="funnylogo.png" alt="The build-a-bear workshop logo poorly edited to say build-an-item workshop.">
+		<p>made by snekk#9497 - go back to <a href="../index.html">main site</a></p>
+		<p>This website looks through every item to determine a range of stat values for each modifier that an item can be given.</p>
+		<p class="clickable" onClick="randomItem()">psst, click here to make a random item!</p>
+		<p>In order: preprefix, prefix (1), prefix (2), postprefix, root, suffix. Root is required.</p>
+		<p><select name="preprefix" id="preprefixes"></select> <select name="prefix1" id="prefixes1"></select> <select name="prefix2" id="prefixes2"></select> <select name="postprefix" id="postprefixes"></select> <select name="root" id="roots"></select> of <select name="suffix" id="suffixes"></select> <button onClick="createItem()">Go</button></p>
+		<script src="script.js"></script>
+		<div id="item">
+			<h3 id="itemheader"></h3>
+			<div id="itemstats"></div>
+		</div>
+	</body>
+</html>

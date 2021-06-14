@@ -1,0 +1,47 @@
+html {
+	font-family: "Arial";
+	background: #ddd;
+}
+
+table {
+	overflow: scroll;
+	table-layout: auto;
+	border-collapse: collapse;
+}
+
+td{
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+tr.headers1 td, tr.headers2 td{
+	text-align: center;
+	border-bottom: 2px solid black;
+}
+
+td{
+	text-align: right;
+	min-width: 60px;
+	white-space: nowrap;
+	padding: 5px;
+}
+
+#mode, .headers2{
+	cursor: pointer;
+}
+
+#searchArea{
+	position: absolute;
+	right: 20%;
+}
+
+img{
+	width: 300px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.clickable {
+	cursor: pointer;
+}
