@@ -164,7 +164,7 @@ async function retrieveParties(count){
 		for(var j = 0; j < order.length; j++){
 			var s = order[j];
 			var headerCell = document.createElement("td");
-			headerCell.innerHTML = FK_STATS_ABB[j];
+			headerCell.innerHTML = FK_STATS_ABB[s];
 			headers.appendChild(headerCell);
 			var beforeCell = document.createElement("td");
 			beforeCell.innerHTML = thisPreparty.data[FK_STATS[s]].toFixed(4);;
