@@ -142,7 +142,7 @@ async function retrieveParties(count){
 		var thisDiv = document.createElement("div");
 		thisDiv.setAttribute("class", "party");
 		var header = document.createElement("h4");
-		header.innerHTML = "Season " + (thisEvent.season+1) + ", day " + (thisEvent.day+1) + ": " + thisEvent.description;
+		header.innerHTML = "Season " + (parseInt(thisEvent.season)+1) + ", day " + (thisEvent.day+1) + ": " + thisEvent.description;
 		thisDiv.appendChild(header);
 		//im thinking a table of before, after, change. sounds good.
 		var tableDiv = document.createElement("div");
