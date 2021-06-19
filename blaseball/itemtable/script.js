@@ -61,155 +61,179 @@ for(i in FK_STATS_ABB){
 
 table.appendChild(headers);
 var items = [];
-// i honestly stole this function shell off something i found on google
-fetch("https://api.sibr.dev/chronicler/v2/entities?type=player")
-	.then((response) => {
-		return response.json()
-	})
-	.then((data) => {
-		var playerData = data.items;
-		//this is where stuff happens
-		//also this is the first time ive done actual javascript hi!
-		//goal is to make an array of item objects
-		//console.log(playerData)
-		
-		playerData.forEach((player) => {
-			//console.log(player);
-			var thisData = player.data;
-			//console.log(thisData);
-			for(item in thisData.items){
-				thisData.items[item].owner = thisData.name;
-				items.push(thisData.items[item]);
-			}
+
+doEverythingIGuess();
+
+async function doEverythingIGuess(){
+	var page;
+	await fetchItemsFromPlayerList(page).then((data) => {
+		page = data;
+	});
+	console.log(page);
+	while(page != null){
+		await fetchItemsFromPlayerList(page).then((data) => {
+			page = data;
 		});
-		//some constants right here for no reason
-		//dictate what is good / bad in terms of items
-		//might have to adjust eventually
-		const vg = 0.3
-		const g = 0.15
-		const b = -0.15
-		const vb = -0.3
-		items.forEach((item) => {
-			//console.log(item);
-			var tr = document.createElement("tr");
-			// first, item name and owner, easy
-			var itemname = document.createElement("td");
-			var owner = document.createElement("td");
-			itemname.innerHTML = item.name;
-			owner.innerHTML = item.owner;
-			tr.appendChild(itemname);
-			tr.appendChild(owner);
-			//now the stats
-			//first i'm creating a list of adjustments. adjustments are attributes on each suffix, root, prefix, etc.
-			var adjustments = [];
-			//first up, preprefix (none exist rn but you never know)
-			var preprefix = item.prePrefix;
-			if(preprefix != null){
-				for(i in preprefix.adjustments){
-					adjustments.push(preprefix.adjustments[i]);
+		console.log(page);
+	}
+	//some constants right here for no reason
+	//dictate what is good / bad in terms of items
+	//might have to adjust eventually
+	const vg = 0.3
+	const g = 0.15
+	const b = -0.15
+	const vb = -0.3
+	items.forEach((item) => {
+		//console.log(item);
+		var tr = document.createElement("tr");
+		// first, item name and owner, easy
+		var itemname = document.createElement("td");
+		var owner = document.createElement("td");
+		itemname.innerHTML = item.name;
+		owner.innerHTML = item.owner;
+		tr.appendChild(itemname);
+		tr.appendChild(owner);
+		//now the stats
+		//first i'm creating a list of adjustments. adjustments are attributes on each suffix, root, prefix, etc.
+		var adjustments = [];
+		//first up, preprefix (none exist rn but you never know)
+		var preprefix = item.prePrefix;
+		if(preprefix != null){
+			for(i in preprefix.adjustments){
+				adjustments.push(preprefix.adjustments[i]);
+			}
+		}
+		//there can be more than one prefix!
+		var prefixes = item.prefixes
+		for(i in prefixes){
+			var prefix = prefixes[i]
+			if(prefix != null){
+				for(j in prefix.adjustments){
+					adjustments.push(prefix.adjustments[j]);
 				}
 			}
-			//there can be more than one prefix!
-			var prefixes = item.prefixes
-			for(i in prefixes){
-				var prefix = prefixes[i]
-				if(prefix != null){
-					for(j in prefix.adjustments){
-						adjustments.push(prefix.adjustments[j]);
+		}
+		//postprefix
+		var postprefix = item.postPrefix
+		if(postprefix != null){
+			for(j in postprefix.adjustments){
+				adjustments.push(postprefix.adjustments[j]);
+			}
+		}
+		//root
+		//also you can tell im copy+pasting a ton because 'i' became 'j' a bit ago
+		var root = item.root
+		if(root != null){
+			for(j in root.adjustments){
+				adjustments.push(root.adjustments[j]);
+			}
+		}
+		//suffix
+		var suffix = item.suffix
+		if(suffix != null){
+			for(j in suffix.adjustments){
+				adjustments.push(suffix.adjustments[j]);
+			}
+		}
+		
+		for(var h = 0; h < 26; h++){
+			//doing it in a specific order that is NOT 0-25 so i do this awful thing:
+			var i = order[h]
+			var statValue = 0; // 0 if it doesnt exist
+			
+			//loop through the adjustments
+			for(j in adjustments){
+				if(adjustments[j].type == 1){ // not caring about mods or durability rn
+					if(adjustments[j].stat == i){
+						statValue += adjustments[j].value;
 					}
-				}
-			}
-			//postprefix
-			var postprefix = item.postPrefix
-			if(postprefix != null){
-				for(j in postprefix.adjustments){
-					adjustments.push(postprefix.adjustments[j]);
-				}
-			}
-			//root
-			//also you can tell im copy+pasting a ton because 'i' became 'j' a bit ago
-			var root = item.root
-			if(root != null){
-				for(j in root.adjustments){
-					adjustments.push(root.adjustments[j]);
-				}
-			}
-			//suffix
-			var suffix = item.suffix
-			if(suffix != null){
-				for(j in suffix.adjustments){
-					adjustments.push(suffix.adjustments[j]);
 				}
 			}
 			
-			for(var h = 0; h < 26; h++){
-				//doing it in a specific order that is NOT 0-25 so i do this awful thing:
-				var i = order[h]
-				var statValue = 0; // 0 if it doesnt exist
-				
-				//loop through the adjustments
-				for(j in adjustments){
-					if(adjustments[j].type == 1){ // not caring about mods or durability rn
-						if(adjustments[j].stat == i){
-							statValue += adjustments[j].value;
-						}
-					}
+			//finally, make and add the cell.
+			var td = document.createElement("td");
+			td.innerHTML = statValue.toFixed(4);
+			if(i != 0 && i != 6){ // not path and trag
+				if(statValue >= vg){
+					td.setAttribute('class', 'vg');
 				}
-				
-				//finally, make and add the cell.
-				var td = document.createElement("td");
-				td.innerHTML = statValue.toFixed(4);
-				if(i != 0 && i != 6){ // not path and trag
-					if(statValue >= vg){
-						td.setAttribute('class', 'vg');
-					}
-					else if(statValue >= g){
-						td.setAttribute('class', 'g');
-					}
-					else if(statValue > 0){
-						td.setAttribute('class', 'sg');
-					}
-					else if(statValue <= vb){
-						td.setAttribute('class', 'vb');
-					}
-					else if(statValue <= b){
-						td.setAttribute('class', 'b');
-					}
-					else if(statValue < 0){
-						td.setAttribute('class', 'sb');
-					}
-				}else{
-					if(statValue >= vg){
-						td.setAttribute('class', 'vb');
-					}
-					else if(statValue >= g){
-						td.setAttribute('class', 'b');
-					}
-					else if(statValue > 0){
-						td.setAttribute('class', 'sb');
-					}
-					else if(statValue <= vb){
-						td.setAttribute('class', 'vg');
-					}
-					else if(statValue <= b){
-						td.setAttribute('class', 'g');
-					}
-					else if(statValue < 0){
-						td.setAttribute('class', 'sg');
-					}
+				else if(statValue >= g){
+					td.setAttribute('class', 'g');
 				}
-				tr.appendChild(td)
+				else if(statValue > 0){
+					td.setAttribute('class', 'sg');
+				}
+				else if(statValue <= vb){
+					td.setAttribute('class', 'vb');
+				}
+				else if(statValue <= b){
+					td.setAttribute('class', 'b');
+				}
+				else if(statValue < 0){
+					td.setAttribute('class', 'sb');
+				}
+			}else{
+				if(statValue >= vg){
+					td.setAttribute('class', 'vb');
+				}
+				else if(statValue >= g){
+					td.setAttribute('class', 'b');
+				}
+				else if(statValue > 0){
+					td.setAttribute('class', 'sb');
+				}
+				else if(statValue <= vb){
+					td.setAttribute('class', 'vg');
+				}
+				else if(statValue <= b){
+					td.setAttribute('class', 'g');
+				}
+				else if(statValue < 0){
+					td.setAttribute('class', 'sg');
+				}
 			}
-			//and append
-			table.appendChild(tr);
-		});
-		//console.log(table);
-		document.getElementById("loading").innerHTML = "";
-	})
-	.catch((err) => {
-		//idk????????????????????
+			tr.appendChild(td)
+		}
+		//and append
+		table.appendChild(tr);
 	});
+	//console.log(table);
+	document.getElementById("loading").innerHTML = "";
+}
 
+async function fetchItemsFromPlayerList(page){
+	var url = "https://api.sibr.dev/chronicler/v2/entities?type=player";
+	if(page != null){
+		url = "https://api.sibr.dev/chronicler/v2/entities?type=player&page="+page;
+	}
+	return fetch(url)
+		.then((response) => {
+			return response.json()
+		})
+		.then((data) => {
+			console.log(data);
+			var playerData = data.items;
+			//this is where stuff happens
+			//also this is the first time ive done actual javascript hi!
+			//goal is to make an array of item objects
+			//console.log(playerData)
+			
+			playerData.forEach((player) => {
+				//console.log(player);
+				var thisData = player.data;
+				//console.log(thisData);
+				for(item in thisData.items){
+					thisData.items[item].owner = thisData.name;
+					items.push(thisData.items[item]);
+				}
+			});
+			return data.nextPage;
+		})
+		.catch((err) => {
+			//idk????????????????????
+			console.log(err);
+		});
+}
 
 //now for some other stuff
 

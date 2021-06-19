@@ -66,126 +66,149 @@ mod --name: ___
 			|
 			|-dur: ___
 */
+//i still dont understand async.
 
+runEverythingIGuess();
 
-// i honestly stole this function shell off something i found on google
-fetch("https://api.sibr.dev/chronicler/v2/entities?type=item")
-	.then((response) => {
-		return response.json()
-	})
-	.then((data) => {
-		//console.log(data);
-		data.items.forEach((item) => {
-			//console.log(item);
-			//first up, preprefix (none exist rn but you never know)
-			var preprefix = item.data.prePrefix;
-			if(preprefix != null){
-				addModifier(preprefix, preprefixes);
-			}
-			//there can be more than one prefix!
-			var prefixess = item.data.prefixes
-			for(i in prefixess){
-				var prefix = prefixess[i]
-				addModifier(prefix, prefixes);
-			}
-			//postprefix
-			var postprefix = item.data.postPrefix
-			if(postprefix != null){
-				addModifier(postprefix, postprefixes);
-			}
-			//root
-			var root = item.data.root
-			if(root != null){
-				addModifier(root, roots);
-			}
-			//suffix
-			var suffix = item.data.suffix
-			if(suffix != null){
-				addModifier(suffix, suffixes);
-			}
-		});
-		console.log("Preprefixes:");
-		console.log(preprefixes);
-		console.log("Prefixes:");
-		console.log(prefixes);
-		console.log("Postprefixes:");
-		console.log(postprefixes);
-		console.log("Roots:");
-		console.log(roots);
-		console.log("Suffixes:");
-		console.log(suffixes);
-		//set up the selectors!
-		//preprefixes:
-		preprefixesSelect = document.getElementById("preprefixes");
-		//add a none to each
-		var none = document.createElement("option");
-		none.setAttribute("value", -1);
-		preprefixesSelect.appendChild(none);
-		for(i in preprefixes){
-			var option = document.createElement("option");
-			option.setAttribute("value", i);
-			option.innerHTML = preprefixes[i].name;
-			preprefixesSelect.appendChild(option);
-		}
-		//prefixes:
-		//i apologize in advance for this but im bad :(
-		prefixesSelect1 = document.getElementById("prefixes1");
-		prefixesSelect2 = document.getElementById("prefixes2");
-		var none = document.createElement("option");
-		none.setAttribute("value", -1);
-		var none2 = document.createElement("option");
-		none2.setAttribute("value", -1);
-		prefixesSelect1.appendChild(none);
-		prefixesSelect2.appendChild(none2);
-		for(i in prefixes){
-			var option = document.createElement("option");
-			option.setAttribute("value", i);
-			option.innerHTML = prefixes[i].name;
-			var option2 = document.createElement("option");
-			option2.setAttribute("value", i);
-			option2.innerHTML = prefixes[i].name;
-			prefixesSelect1.appendChild(option);
-			prefixesSelect2.appendChild(option2);
-		}
-		//postprefixes:
-		postprefixesSelect = document.getElementById("postprefixes");
-		var none = document.createElement("option");
-		none.setAttribute("value", -1);
-		postprefixesSelect.appendChild(none);
-		for(i in postprefixes){
-			var option = document.createElement("option");
-			option.setAttribute("value", i);
-			option.innerHTML = postprefixes[i].name;
-			postprefixesSelect.appendChild(option);
-		}
-		//roots:
-		rootsSelect = document.getElementById("roots");
-		var none = document.createElement("option");
-		none.setAttribute("value", -1);
-		rootsSelect.appendChild(none);
-		for(i in roots){
-			var option = document.createElement("option");
-			option.setAttribute("value", i);
-			option.innerHTML = roots[i].name;
-			rootsSelect.appendChild(option);
-		}
-		//suffixes:
-		suffixesSelect = document.getElementById("suffixes");
-		var none = document.createElement("option");
-		none.setAttribute("value", -1);
-		suffixesSelect.appendChild(none);
-		for(i in suffixes){
-			var option = document.createElement("option");
-			option.setAttribute("value", i);
-			option.innerHTML = suffixes[i].name;
-			suffixesSelect.appendChild(option);
-		}
-	})
-	.catch((err) => {
-		//idk????????????????????
-		console.log(err);
+async function runEverythingIGuess(){
+	var next;
+	await fetchItems(null).then((data) => {
+		next = data;
 	});
-
+	console.log(next);
+	while(next != null){
+		await fetchItems(next).then((data) => {
+			next = data;
+		});
+		console.log(next);
+	}
+	console.log("Preprefixes:");
+	console.log(preprefixes);
+	console.log("Prefixes:");
+	console.log(prefixes);
+	console.log("Postprefixes:");
+	console.log(postprefixes);
+	console.log("Roots:");
+	console.log(roots);
+	console.log("Suffixes:");
+	console.log(suffixes);
+	//set up the selectors!
+	//preprefixes:
+	preprefixesSelect = document.getElementById("preprefixes");
+	//add a none to each
+	var none = document.createElement("option");
+	none.setAttribute("value", -1);
+	preprefixesSelect.appendChild(none);
+	for(i in preprefixes){
+		var option = document.createElement("option");
+		option.setAttribute("value", i);
+		option.innerHTML = preprefixes[i].name;
+		preprefixesSelect.appendChild(option);
+	}
+	//prefixes:
+	//i apologize in advance for this but im bad :(
+	prefixesSelect1 = document.getElementById("prefixes1");
+	prefixesSelect2 = document.getElementById("prefixes2");
+	var none = document.createElement("option");
+	none.setAttribute("value", -1);
+	var none2 = document.createElement("option");
+	none2.setAttribute("value", -1);
+	prefixesSelect1.appendChild(none);
+	prefixesSelect2.appendChild(none2);
+	for(i in prefixes){
+		var option = document.createElement("option");
+		option.setAttribute("value", i);
+		option.innerHTML = prefixes[i].name;
+		var option2 = document.createElement("option");
+		option2.setAttribute("value", i);
+		option2.innerHTML = prefixes[i].name;
+		prefixesSelect1.appendChild(option);
+		prefixesSelect2.appendChild(option2);
+	}
+	//postprefixes:
+	postprefixesSelect = document.getElementById("postprefixes");
+	var none = document.createElement("option");
+	none.setAttribute("value", -1);
+	postprefixesSelect.appendChild(none);
+	for(i in postprefixes){
+		var option = document.createElement("option");
+		option.setAttribute("value", i);
+		option.innerHTML = postprefixes[i].name;
+		postprefixesSelect.appendChild(option);
+	}
+	//roots:
+	rootsSelect = document.getElementById("roots");
+	var none = document.createElement("option");
+	none.setAttribute("value", -1);
+	rootsSelect.appendChild(none);
+	for(i in roots){
+		var option = document.createElement("option");
+		option.setAttribute("value", i);
+		option.innerHTML = roots[i].name;
+		rootsSelect.appendChild(option);
+	}
+	//suffixes:
+	suffixesSelect = document.getElementById("suffixes");
+	var none = document.createElement("option");
+	none.setAttribute("value", -1);
+	suffixesSelect.appendChild(none);
+	for(i in suffixes){
+		var option = document.createElement("option");
+		option.setAttribute("value", i);
+		option.innerHTML = suffixes[i].name;
+		suffixesSelect.appendChild(option);
+	}
+}
+//ok i need to do pagination which i didnt know was a thing until now so uhhhhhhhhhhhhh recursion time
+async function fetchItems(page){
+	// i honestly stole this function shell off something i found on google
+	var url = "https://api.sibr.dev/chronicler/v2/entities?type=item";
+	if(page != null){
+		url = "https://api.sibr.dev/chronicler/v2/entities?type=item&page="+page;
+	}
+	return fetch(url)
+		.then((response) => {
+			return response.json()
+		})
+		.then((data) => {
+			//console.log(data);
+			data.items.forEach((item) => {
+				//console.log(item);
+				//first up, preprefix (none exist rn but you never know)
+				var preprefix = item.data.prePrefix;
+				if(preprefix != null){
+					addModifier(preprefix, preprefixes);
+				}
+				//there can be more than one prefix!
+				var prefixess = item.data.prefixes
+				for(i in prefixess){
+					var prefix = prefixess[i]
+					addModifier(prefix, prefixes);
+				}
+				//postprefix
+				var postprefix = item.data.postPrefix
+				if(postprefix != null){
+					addModifier(postprefix, postprefixes);
+				}
+				//root
+				var root = item.data.root
+				if(root != null){
+					addModifier(root, roots);
+				}
+				//suffix
+				var suffix = item.data.suffix
+				if(suffix != null){
+					addModifier(suffix, suffixes);
+				}
+			});
+			return data.nextPage;
+			//console.log(data.nextPage);
+		})
+		.catch((err) => {
+			//idk????????????????????
+			console.log(err);
+		});
+}
 
 //now for some other stuff
 
