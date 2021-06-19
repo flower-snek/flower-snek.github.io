@@ -56,22 +56,21 @@ partiesDiv = document.getElementById("parties");
 
 var divs = [];
 const increment = 100;
-var currentShown = increment;
+var currentShown = 0;
 
-retrieveParties(currentShown);
+showMore();
 document.getElementById("loading").innerHTML = "";
 
 function showMore(){
-	/*
-	for(var i = 0; i < increment && i + currentNumberOfDivs < divs.length; i++){
-		prizesDiv.appendChild(divs[currentNumberOfDivs + i]);
-	}
-	currentShown += increment;*/
+	document.getElementById("loading").innerHTML = "loading . . .";
+	retrieveParties(increment, currentShown);
+	currentShown += increment;
+	document.getElementById("loading").innerHTML = "";
 }
 
-async function retrieveParties(count){
+async function retrieveParties(count, offset){
 	//GOD ASYNCHRONOUS FUNCTIONS HURT MY BRAIN I HATE THIS but its also kinda cool and keeps stuff in order but also AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	var partyList = await fetch("https://api.sibr.dev/eventually/events?type=24&limit="+count)
+	var partyList = await fetch("https://api.sibr.dev/eventually/events?type=24&limit="+count+"&offset="+offset)
 		.then((response) => {
 			return response.json();
 		});
@@ -163,17 +162,21 @@ async function retrieveParties(count){
 		change.appendChild(changeCell);
 		for(var j = 0; j < order.length; j++){
 			var s = order[j];
+			var pre = thisPreparty.data[FK_STATS[s]];
+			var post = thisPostparty.data[FK_STATS[s]];
 			var headerCell = document.createElement("td");
 			headerCell.innerHTML = FK_STATS_ABB[s];
 			headers.appendChild(headerCell);
 			var beforeCell = document.createElement("td");
-			beforeCell.innerHTML = thisPreparty.data[FK_STATS[s]].toFixed(4);;
+			beforeCell.innerHTML = pre.toFixed(4);
+			colorFromVal(beforeCell, pre, (s == 0 || s == 6 ? -1 : 1));
 			before.appendChild(beforeCell);
 			var afterCell = document.createElement("td");
-			afterCell.innerHTML = thisPostparty.data[FK_STATS[s]].toFixed(4);;
+			afterCell.innerHTML = post.toFixed(4);
+			colorFromVal(afterCell, post, (s == 0 || s == 6 ? -1 : 1));
 			after.appendChild(afterCell);
 			var changeCell = document.createElement("td");
-			changeCell.innerHTML = (thisPostparty.data[FK_STATS[s]] - thisPreparty.data[FK_STATS[s]]).toFixed(4);
+			changeCell.innerHTML = (post - pre).toFixed(4);
 			change.appendChild(changeCell);
 		}
 		table.appendChild(headers);
@@ -185,4 +188,21 @@ async function retrieveParties(count){
 		//aaaaaand send it
 		partiesDiv.appendChild(thisDiv);
 	}
+}
+
+function colorFromVal(cell, val, neg){
+	var cls = "eh";
+	if(neg == -1){
+		val = 1.25 - val; // it just works
+	}
+	if(val < 0.3){
+		cls = "vb";
+	}else if(val < 0.6){
+		cls = "kb";
+	}else if(val > 1.2){
+		cls = "vg";
+	}else if(val > 0.9){
+		cls = "kg";
+	}
+	cell.setAttribute("class", cls);
 }

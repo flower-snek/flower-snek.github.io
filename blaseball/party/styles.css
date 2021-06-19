@@ -17,6 +17,21 @@ h1, h3 {
 	border-radius: 5px;
 }
 
+.vg {
+	background: #9e9;
+}
+.kg {
+	background: #bd9;
+}
+.eh {
+	background: #cc9;
+}
+.kb {
+	background: #db9;
+}
+.vb {
+	background: #e99;
+}
 h4{
 	padding: 10px;
 	font-size: 24px;
