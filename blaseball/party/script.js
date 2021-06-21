@@ -63,11 +63,10 @@ const increment = 100;
 var currentShown = 0;
 
 showMore();
-document.getElementById("loading").innerHTML = "";
 
-function showMore(){
+async function showMore(){
 	document.getElementById("loading").innerHTML = "loading . . .";
-	retrieveParties(increment, currentShown);
+	await retrieveParties(increment, currentShown);
 	currentShown += increment;
 	document.getElementById("loading").innerHTML = "";
 }
