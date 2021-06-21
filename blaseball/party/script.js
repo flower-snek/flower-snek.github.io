@@ -1,3 +1,7 @@
+
+//dont make fun of my code thanks
+
+
 const order = [0, 1, 2, 3, 4, 5, 6, 7, 14, 15, 16, 17, 18, 19, 9, 10, 11, 12, 13, 21, 22, 23, 24, 25, 8, 20] // stat display order (makes more sense)
 const FK_STATS = ["tragicness",
 			"buoyancy",
@@ -69,8 +73,8 @@ function showMore(){
 }
 
 async function retrieveParties(count, offset){
-	//GOD ASYNCHRONOUS FUNCTIONS HURT MY BRAIN I HATE THIS but its also kinda cool and keeps stuff in order but also AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	var partyList = await fetch("https://api.sibr.dev/eventually/events?type=24&limit="+count+"&offset="+offset)
+	//ASYNCHRONOUS FUNCTIONS HURT MY BRAIN I HATE THIS but its actually kinda cool and keeps stuff in order which is good but also AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+	var partyList = await fetch("https://api.sibr.dev/eventually/events?type=117&description=Partying&limit="+count+"&offset="+offset)
 		.then((response) => {
 			return response.json();
 		});
