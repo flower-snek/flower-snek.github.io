@@ -118,8 +118,11 @@ async function retrieveParties(count, offset){
 				return response.json();
 			})
 			.then((changesPost) => {
-				return changesPost.data[0];
-				
+				if(changesPost.data != null){
+					return changesPost.data[0];
+				}else{
+					return null; // the time string used will be invalid when chronicler hasnt updated the party yet. returning null and will check for null Later(tm)
+				}
 			})
 			.catch((err) => {
 				//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -140,54 +143,61 @@ async function retrieveParties(count, offset){
 		// console.log(thisEvent);
 		console.log(thisPreparty);
 		// console.log(thisPostparty);
-		//now we can do things! yeah! woo!
+		//hey look its Later(tm)
 		var thisDiv = document.createElement("div");
 		thisDiv.setAttribute("class", "party");
 		var header = document.createElement("h4");
 		header.innerHTML = "Season " + (parseInt(thisEvent.season)+1) + ", day " + (thisEvent.day+1) + ": " + thisEvent.description;
 		thisDiv.appendChild(header);
-		//im thinking a table of before, after, change. sounds good.
-		var tableDiv = document.createElement("div");
-		var table = document.createElement("table");
-		var headers = document.createElement("tr");
-		headers.appendChild(document.createElement("td")); // empty one at first, then fill in the stats in the Funny Order
-		var before = document.createElement("tr");
-		var beforeCell = document.createElement("td");
-		beforeCell.innerHTML = "Before";
-		before.appendChild(beforeCell);
-		var after = document.createElement("tr");
-		var afterCell = document.createElement("td");
-		afterCell.innerHTML = "After";
-		after.appendChild(afterCell);
-		var change = document.createElement("tr");
-		var changeCell = document.createElement("td");
-		changeCell.innerHTML = "Change";
-		change.appendChild(changeCell);
-		for(var j = 0; j < order.length; j++){
-			var s = order[j];
-			var pre = thisPreparty.data[FK_STATS[s]];
-			var post = thisPostparty.data[FK_STATS[s]];
-			var headerCell = document.createElement("td");
-			headerCell.innerHTML = FK_STATS_ABB[s];
-			headers.appendChild(headerCell);
+		if(thisPostparty != null){
+			//im thinking a table of before, after, change. sounds good.
+			var tableDiv = document.createElement("div");
+			var table = document.createElement("table");
+			var headers = document.createElement("tr");
+			headers.appendChild(document.createElement("td")); // empty one at first, then fill in the stats in the Funny Order
+			var before = document.createElement("tr");
 			var beforeCell = document.createElement("td");
-			beforeCell.innerHTML = pre.toFixed(4);
-			colorFromVal(beforeCell, pre, (s == 0 || s == 6 ? -1 : 1));
+			beforeCell.innerHTML = "Before";
 			before.appendChild(beforeCell);
+			var after = document.createElement("tr");
 			var afterCell = document.createElement("td");
-			afterCell.innerHTML = post.toFixed(4);
-			colorFromVal(afterCell, post, (s == 0 || s == 6 ? -1 : 1));
+			afterCell.innerHTML = "After";
 			after.appendChild(afterCell);
+			var change = document.createElement("tr");
 			var changeCell = document.createElement("td");
-			changeCell.innerHTML = (post - pre).toFixed(4);
+			changeCell.innerHTML = "Change";
 			change.appendChild(changeCell);
+			for(var j = 0; j < order.length; j++){
+				var s = order[j];
+				var pre = thisPreparty.data[FK_STATS[s]];
+				var post = thisPostparty.data[FK_STATS[s]];
+				var headerCell = document.createElement("td");
+				headerCell.innerHTML = FK_STATS_ABB[s];
+				headers.appendChild(headerCell);
+				var beforeCell = document.createElement("td");
+				beforeCell.innerHTML = pre.toFixed(4);
+				colorFromVal(beforeCell, pre, (s == 0 || s == 6 ? -1 : 1));
+				before.appendChild(beforeCell);
+				var afterCell = document.createElement("td");
+				afterCell.innerHTML = post.toFixed(4);
+				colorFromVal(afterCell, post, (s == 0 || s == 6 ? -1 : 1));
+				after.appendChild(afterCell);
+				var changeCell = document.createElement("td");
+				changeCell.innerHTML = (post - pre).toFixed(4);
+				change.appendChild(changeCell);
+			}
+			table.appendChild(headers);
+			table.appendChild(before);
+			table.appendChild(after);
+			table.appendChild(change);
+			tableDiv.appendChild(table);
+			thisDiv.appendChild(tableDiv);
+			
+		}else{
+			var sorry = document.createElement("p");
+			sorry.innerHTML = "Chronicler hasn't updated with this change yet, check back in a minute or two!";
+			thisDiv.appendChild(sorry); // sorry
 		}
-		table.appendChild(headers);
-		table.appendChild(before);
-		table.appendChild(after);
-		table.appendChild(change);
-		tableDiv.appendChild(table);
-		thisDiv.appendChild(tableDiv);
 		//aaaaaand send it
 		partiesDiv.appendChild(thisDiv);
 	}
