@@ -73,7 +73,7 @@ async function showMore(){
 
 async function retrieveParties(count, offset){
 	//ASYNCHRONOUS FUNCTIONS HURT MY BRAIN I HATE THIS but its actually kinda cool and keeps stuff in order which is good but also AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	var partyList = await fetch("https://api.sibr.dev/eventually/events?type=117&description=Partying&limit="+count+"&offset="+offset)
+	var partyList = await fetch("https://api.sibr.dev/eventually/v2/events?type=117&description=Partying&sortby=created&sortorder=desc&limit="+count+"&offset="+offset)
 		.then((response) => {
 			return response.json();
 		});
@@ -85,7 +85,7 @@ async function retrieveParties(count, offset){
 		//this'll require a pull from chronicler for each party so I should be more careful with this but oh well
 		//get the player id and the time this happened, though we'll need to adjust the time a bit because the two databases arent quite synced
 		var playerid = party.playerTags[0];
-		var timeString = party.created;
+		var timeString = party.created.split("+")[0];
 		prepartyPromises.push(fetch("https://api.sibr.dev/chronicler/v1/players/updates?player="+playerid+"&order=desc&count=1&before="+timeString+"Z") // this will get stats prior to party
 			.then((response) => {
 				return response.json();
@@ -109,7 +109,7 @@ async function retrieveParties(count, offset){
 	prepartyArray.forEach((prepartyData) => {
 		//console.log(prepartyData);
 		//now we get the post-party data!
-		//the time we look after will have to be just before the next change so i'll just splice off the massive decimal chronicler gives
+		//the time we look after will have to be just before the next change, ill just splice off the tail end of the time...
 		var playerid = prepartyData.playerId;
 		var timeStringPost = prepartyData.lastSeen.split(".")[0];
 		//console.log(timeStringPost);
@@ -140,9 +140,6 @@ async function retrieveParties(count, offset){
 		var thisEvent = partyList[i];
 		var thisPreparty = prepartyArray[i];
 		var thisPostparty = postpartyArray[i];
-		// console.log(thisEvent);
-		console.log(thisPreparty);
-		// console.log(thisPostparty);
 		//hey look its Later(tm)
 		var thisDiv = document.createElement("div");
 		thisDiv.setAttribute("class", "party");
