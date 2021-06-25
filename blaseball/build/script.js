@@ -297,7 +297,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
@@ -308,6 +313,7 @@ function createItem(){
 		dur++;
 		name = name + prefixes[thisSelect.value].name + " ";
 		thisAdj = prefixes[thisSelect.value].adjustments;
+		console.log(thisAdj);
 		for(i in thisAdj){
 			var exists = false;
 			for(j in adj){
@@ -323,7 +329,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
@@ -334,6 +345,7 @@ function createItem(){
 		dur++;
 		name = name + prefixes[thisSelect.value].name + " ";
 		thisAdj = prefixes[thisSelect.value].adjustments;
+		console.log(thisAdj);
 		for(i in thisAdj){
 			var exists = false;
 			for(j in adj){
@@ -349,7 +361,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
@@ -375,7 +392,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
@@ -387,6 +409,7 @@ function createItem(){
 		hasRoot = true;
 		name = name + roots[thisSelect.value].name;
 		thisAdj = roots[thisSelect.value].adjustments;
+		console.log(thisAdj);
 		for(i in thisAdj){
 			var exists = false;
 			for(j in adj){
@@ -402,7 +425,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
@@ -413,6 +441,7 @@ function createItem(){
 		dur++;
 		name = name + " of " + suffixes[thisSelect.value].name;
 		thisAdj = suffixes[thisSelect.value].adjustments;
+		console.log(thisAdj);
 		for(i in thisAdj){
 			var exists = false;
 			for(j in adj){
@@ -428,7 +457,12 @@ function createItem(){
 				}
 			}
 			if(!exists){
-				adj.push(thisAdj[i]);
+				var newAdj = {};
+				newAdj.stat = thisAdj[i].stat;
+				newAdj.type = thisAdj[i].type;
+				newAdj.min = thisAdj[i].min;
+				newAdj.max = thisAdj[i].max;
+				adj.push(newAdj);
 			}
 		}
 	}
