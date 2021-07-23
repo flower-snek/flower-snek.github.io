@@ -73,7 +73,7 @@ async function showMore(){
 
 async function retrieveParties(count, offset){
 	//ASYNCHRONOUS FUNCTIONS HURT MY BRAIN I HATE THIS but its actually kinda cool and keeps stuff in order which is good but also AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-	var partyList = await fetch("https://api.sibr.dev/eventually/v2/events?type=117&description=Partying&sortby=created&sortorder=desc&limit="+count+"&offset="+offset)
+	var partyList = await fetch("https://api.sibr.dev/eventually/v2/events?type=117&description=Partying&sortorder=desc&limit="+count+"&offset="+offset)
 		.then((response) => {
 			return response.json();
 		});
