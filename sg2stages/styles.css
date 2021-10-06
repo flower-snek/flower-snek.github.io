@@ -1,0 +1,151 @@
+html{
+	background-color: #000;
+	color: #ddd;
+	height: 100%
+}
+
+body{
+	font-family: Helvetica, sans-serif;
+	text-align: center;
+}
+
+
+h1{
+	text-align: center;
+	font-size: 5vh;
+}
+h3{
+	text-align: center;
+	font-size: 3vh;
+	margin: 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#best{
+	cursor:pointer;
+}
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+}
+td{
+	text-align: center;
+	border-radius: 0.5vw;
+	font-size: 1vw;
+	width: 9vw;
+	height: 16vh;
+	background-size: cover;
+	background-position: center;
+	cursor: pointer;
+}
+td div{
+	padding-top:5px;
+	padding-bottom:5px;
+	margin:0px;
+	user-select: none;
+}
+.none{
+	background-color: #333;
+	color: #ddd;
+	cursor: auto;
+}
+.beach{
+	border: 2px solid #eeb;
+	color: #222;
+}
+.beach .txt{
+	background-color: #eeb;
+	width: 100%;
+}
+.forest{
+	border: 2px solid #5a5;
+	color: #222;
+}
+.forest .txt{
+	background-color: #5a5;
+	width: 100%;
+}
+.dark{
+	border: 2px solid #424;
+	color: #ddd;
+}
+.dark .txt{
+	background-color: #424;
+	width: 100%;
+}
+.ice{
+	border: 2px solid #ddf;
+	color: #222;
+}
+.ice .txt{
+	background-color: #ddf;
+	width: 100%;
+}
+.minit{
+	border: 2px solid #fff;
+	color: #222;
+}
+.minit .txt{
+	background-color: #fff;
+	width: 100%;
+}
+.spelunky{
+	border: 2px solid #ee0;
+	color: #222;
+}
+.spelunky .txt{
+	background-color: #ee0;
+	width: 100%;
+}
+
+
+.banned {
+	background-color: #f44;
+	border: 2px solid #d22;
+	background-blend-mode: multiply;
+}
+.banned .txt{
+	background-color: #d22;
+}
+
+.selectbanned {
+	background-color: #f88;
+	border: 2px solid #e66;
+	background-blend-mode: multiply;
+}
+.selectbanned .txt{
+	background-color: #e66;
+}
+
+
+.select {
+	background-color: #2f2;
+	border: 2px solid #cfc;
+	background-blend-mode: multiply;
+}
+.select .txt{
+	background-color: #cfc;
+	color: #222;
+}
+
+
+.footnote{
+	text-align: center;
+	font-size: 12px;
+	font-style: italic;
+}
+
+#step{
+	font-size: 28px;
+}
+.button{
+	cursor: pointer;
+	font-size: 20px;
+	background-color: #225;
+	width: 20%;
+	padding: 1vw;
+	margin-left: auto;
+	margin-right: auto;
+}
