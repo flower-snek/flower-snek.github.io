@@ -170,12 +170,15 @@ function confirmBansInit(){
 			}
 		}
 	}
-	banStep++;
-	banning = 1 - banning;
-	if(banStep >= initialBanOrder.length){
-		step++;
-	}else{
-		remainingBans = parseInt(initialBanOrder.charAt(banStep));
+	while(remainingBans == 0){
+		banStep++;
+		banning = 1 - banning;
+		if(banStep >= initialBanOrder.length){
+			step++;
+			remainingBans = -1;
+		}else{
+			remainingBans = parseInt(initialBanOrder.charAt(banStep));
+		}
 	}
 	setInstructionsBasedOnStep();
 }
