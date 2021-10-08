@@ -236,6 +236,11 @@ function roundWon(player){
 		banStep = 0;
 		remainingBans = parseInt(afterBanOrder.charAt(banStep));
 		banning = player;
+		if(remainingBans == 0){
+			banStep++;
+			remainingBans = parseInt(afterBanOrder.charAt(banStep));
+			banning = 1 - player;
+		}
 	}
 	updateScore();
 	setInstructionsBasedOnStep();
