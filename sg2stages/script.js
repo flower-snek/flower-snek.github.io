@@ -25,6 +25,9 @@ var initialBanOrder = "1221"; // need to find an actual ban order one of these d
 var afterBanOrder = "3";
 var banStep = -1;
 
+var funn = true;
+var funnBanOrder = "11";
+
 var permbanning = false;
 
 var wins = [0,0];
@@ -81,8 +84,8 @@ function setInstructionsBasedOnStep(){
 			button1.innerHTML = "Click to confirm";
 			button1.setAttribute("onclick", "confirmBansInit()")
 		}
-		button2.innerHTML = "----";
-		button2.removeAttribute("onclick")
+		button2.innerHTML = "Skip";
+		button2.setAttribute("onclick", "skipBansInit()")
 	} else if(step == 2){
 		// pick!
 		let inst_div = document.getElementById("instructions");
@@ -129,8 +132,8 @@ function setInstructionsBasedOnStep(){
 			button1.innerHTML = "Click to confirm";
 			button1.setAttribute("onclick", "confirmBans()")
 		}
-		button2.innerHTML = "----";
-		button2.removeAttribute("onclick")
+		button2.innerHTML = "Skip";
+		button2.setAttribute("onclick", "skipBans()")
 	} else if(step == 5){
 		// you won! or maybe you didn't. idk. i'm just a comment.
 		let inst_div = document.getElementById("instructions");
@@ -154,7 +157,11 @@ function setInstructionsBasedOnStep(){
 function setFirstBan(player){
 	banning = player;
 	banStep = 0;
-	remainingBans = parseInt(initialBanOrder.charAt(banStep));
+	if(funn){
+		remainingBans = parseInt(funnBanOrder.charAt(banStep));
+	}else{
+		remainingBans = parseInt(initialBanOrder.charAt(banStep));
+	}
 	step++;
 	setInstructionsBasedOnStep();
 }
@@ -173,14 +180,27 @@ function confirmBansInit(){
 	while(remainingBans == 0){
 		banStep++;
 		banning = 1 - banning;
-		if(banStep >= initialBanOrder.length){
-			step++;
-			remainingBans = -1;
+		if(funn){
+			if(banStep >= funnBanOrder.length){
+				step++;
+				remainingBans = -1;
+			}else{
+				remainingBans = parseInt(funnBanOrder.charAt(banStep));
+			}
 		}else{
-			remainingBans = parseInt(initialBanOrder.charAt(banStep));
+			if(banStep >= initialBanOrder.length){
+				step++;
+				remainingBans = -1;
+			}else{
+				remainingBans = parseInt(initialBanOrder.charAt(banStep));
+			}
 		}
 	}
 	setInstructionsBasedOnStep();
+}
+function skipBansInit(){
+	remainingBans = 0;
+	confirmBansInit();
 }
 
 function confirmBans(){
@@ -194,14 +214,21 @@ function confirmBans(){
 			}
 		}
 	}
-	banStep++;
-	banning = 1 - banning;
-	if(banStep >= afterBanOrder.length){
-		step = 2;
-	}else{
-		remainingBans = parseInt(afterBanOrder.charAt(banStep));
+	while(remainingBans == 0){
+		banStep++;
+		banning = 1 - banning;
+		if(banStep >= afterBanOrder.length){
+			step = 2;
+			remainingBans = -1;
+		}else{
+			remainingBans = parseInt(afterBanOrder.charAt(banStep));
+		}
 	}
 	setInstructionsBasedOnStep();
+}
+function skipBans(){
+	remainingBans = 0;
+	confirmBans();
 }
 
 function toggleSelectBan(row, column){
@@ -232,14 +259,22 @@ function roundWon(player){
 		banning = player;
 	}else{
 		step++;
-		resetBans();
-		banStep = 0;
-		remainingBans = parseInt(afterBanOrder.charAt(banStep));
-		banning = player;
-		if(remainingBans == 0){
-			banStep++;
-			remainingBans = parseInt(afterBanOrder.charAt(banStep));
+		if(funn){
+			let rows = document.getElementById("stages").getElementsByTagName("tr");
+			for(let i = 0; i < rows.length; i++){
+				let cells = rows[i].getElementsByTagName("td");
+				for(let j = 0; j < cells.length; j++){
+					cells[j].classList.remove("select");
+				}
+			}
 			banning = 1 - player;
+			step = 2;
+		}else{
+			resetBans();
+			banStep = -1;
+			remainingBans = 0;
+			confirmBans(); // just because it does the while loop job already
+			banning = player; // undoes the player change from it
 		}
 	}
 	updateScore();
@@ -305,6 +340,19 @@ function updateScore(){
 	score.innerHTML = "Current score: " + wins[0] + " - " + wins[1];
 }
 
+function funntoggle(){
+	funn = !funn;
+	if(funn){
+		document.getElementById("gunn").style.display = "none"
+		document.getElementById("funn").style.display = "block"
+		document.getElementById("funntoggler").innerHTML = "Toggle mode: Funn";
+	}else{
+		document.getElementById("funn").style.display = "none"
+		document.getElementById("gunn").style.display = "block"
+		document.getElementById("funntoggler").innerHTML = "Toggle mode: Gunn";
+	}
+}
+
 let initinput = document.getElementById("initban");
 let counterinput = document.getElementById("counterban");
 initinput.onchange = function(){
@@ -314,5 +362,24 @@ counterinput.onchange = function(){
 	afterBanOrder = counterinput.value;
 }
 
+let funninput = document.getElementById("funncount");
+funninput.onchange = function(){
+	funnBanOrder = funninput.value + funninput.value // yeah .
+}
+
 //finish setup
-setInstructionsBasedOnStep();
+initialize()
+
+function initialize(){
+	if(funn){
+		document.getElementById("gunn").style.display = "none"
+		document.getElementById("funn").style.display = "block"
+		document.getElementById("funntoggler").innerHTML = "Toggle mode: Funn";
+	}else{
+		document.getElementById("funn").style.display = "none"
+		document.getElementById("gunn").style.display = "block"
+		document.getElementById("funntoggler").innerHTML = "Toggle mode: Gunn";
+	}
+	
+	setInstructionsBasedOnStep();
+}
