@@ -8,7 +8,6 @@
 		<h1> SG2 STAGE SELECT </h1>
 		<h3 id="best" onclick="togglebestof()"> Best of 3 </h3>
 		<h3 id="score"> Current score: 0 - 0 </h3>
-		<p> (click on the above to change it) </p>
 		<table id="stages">
 			<tr>
 				<td class="none"></td>
@@ -28,7 +27,7 @@
 				<td class="dark" style="background-image:url('imgs/Bedrock.png');"><div class="txt">BEDROCK</div></td>
 				<td class="dark" style="background-image:url('imgs/Nostril.png');"><div class="txt">NOSTRIL</div></td>
 				<td class="minit" style="background-image:url('imgs/Minit.png');"><div class="txt">MINIT</div></td>
-				<td class="spelunky" style="background-image:url('imgs/Spelunky.png');"><div class="txt">SPELUNKY</div></td>
+				<td class="spelunky permabanned" style="background-image:url('imgs/Spelunky.png');"><div class="txt">SPELUNKY</div></td>
 			</tr>
 			<tr>
 				<td class="none"></td>
@@ -45,9 +44,13 @@
 			<p id="step"></p>
 			<p class="button"></p><p class="button"></p>
 		</div>
-		
-		
-		<p class="footnote">website by snekk#9497, stage images taken by TheFatFairy#1637, current ban order is 1-2-2-1 first round, then winner bans 3</p>
+		<div id="options"> 
+			<h3> Options </h3>
+			<p class = "clickable" id="bestoption" onclick="togglebestof()"> Best of [3] </p>
+			<p> Ban orders: <input id="initban" value="1221" size="5">, then <input id="counterban" value="3" size="5"></p>
+			<p class = "clickable" id="permban" onclick="togglepermaban()"> Toggle permabanned stages </p>
+		</div>
+		<p class="footnote">stage images taken by TheFatFairy#1637<br>website by snekk#9497, yell at them when something breaks</p>
 		<script src="script.js"></script>
 	</body>
 </html>

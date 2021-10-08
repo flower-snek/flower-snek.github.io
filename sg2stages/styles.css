@@ -7,6 +7,7 @@ html{
 body{
 	font-family: Helvetica, sans-serif;
 	text-align: center;
+	padding-bottom: 10px;
 }
 
 
@@ -22,8 +23,8 @@ h3{
 	margin-right: auto;
 }
 
-#best{
-	cursor:pointer;
+.clickable {
+	cursor: pointer;
 }
 
 table{
@@ -102,12 +103,12 @@ td div{
 
 
 .banned {
-	background-color: #f44;
-	border: 2px solid #d22;
+	background-color: #a22;
+	border: 2px solid #b22;
 	background-blend-mode: multiply;
 }
 .banned .txt{
-	background-color: #d22;
+	background-color: #b22;
 }
 
 .selectbanned {
@@ -117,6 +118,16 @@ td div{
 }
 .selectbanned .txt{
 	background-color: #e66;
+}
+
+
+.permabanned {
+	background-color: #000;
+	border: 2px solid #800;
+	background-blend-mode: multiply;
+}
+.permabanned .txt{
+	background-color: #800;
 }
 
 
@@ -148,4 +159,19 @@ td div{
 	padding: 1vw;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+#options{
+	background-color: #333;
+	padding-bottom: 5px;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 5px;
+}
+
+#options h3{
+	padding: 10px;
+	background-color: #222;
+	border-radius: 5px;
 }

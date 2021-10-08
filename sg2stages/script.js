@@ -21,9 +21,11 @@ for(let i = 0; i < start_rows.length; i++){
 var step = 0;
 var banning = -1;
 var remainingBans = -1;
-const initialBanOrder = "1221"; // need to find an actual ban order one of these days
-const afterBanOrder = "3";
+var initialBanOrder = "1221"; // need to find an actual ban order one of these days
+var afterBanOrder = "3";
 var banStep = -1;
+
+var permbanning = false;
 
 var wins = [0,0];
 var ft = 2;
@@ -35,11 +37,18 @@ function stageClicked(row, column){
 	if(step == 2){
 		selectStage(row, column);
 	}
+	
+	if(permbanning){
+		permban(row, column);
+	}
 	setInstructionsBasedOnStep()
 }
 
 function setInstructionsBasedOnStep(){
 	if(step == 0){
+		// show options
+		let options = document.getElementById("options");
+		options.style.display = "block";
 		// initial setup
 		let inst_div = document.getElementById("instructions");
 		let step_para = document.getElementById("step");
@@ -51,6 +60,9 @@ function setInstructionsBasedOnStep(){
 		button2.innerHTML = "Opponent's banning";
 		button2.setAttribute("onclick", "setFirstBan(1)")
 	} else if(step == 1){
+		// hide options
+		let options = document.getElementById("options");
+		options.style.display = "none";
 		// banning phase
 		let inst_div = document.getElementById("instructions");
 		let step_para = document.getElementById("step");
@@ -191,7 +203,7 @@ function confirmBans(){
 
 function toggleSelectBan(row, column){
 	let cell = document.getElementById("stages").getElementsByTagName("tr")[row].getElementsByTagName("td")[column] // long lines wooo!
-	if (!cell.classList.contains("banned")){
+	if (!cell.classList.contains("banned") && !cell.classList.contains("permabanned")){
 		if (cell.classList.contains("selectbanned")){
 			cell.classList.remove("selectbanned");
 			remainingBans++;
@@ -203,8 +215,8 @@ function toggleSelectBan(row, column){
 }
 
 function selectStage(row, column){
-	let cell = document.getElementById("stages").getElementsByTagName("tr")[row].getElementsByTagName("td")[column] // long lines wooo!
-	if (!cell.classList.contains("banned")){
+	let cell = document.getElementById("stages").getElementsByTagName("tr")[row].getElementsByTagName("td")[column]
+	if (!cell.classList.contains("banned") && !cell.classList.contains("permabanned")){
 		cell.classList.add("select")
 		step++;
 	}
@@ -248,16 +260,50 @@ function resetBans(){
 }
 
 function togglebestof(){
-	if (step <= 1){
-		ft = ((ft - 1) % 3) + 2;
-		let bestof = document.getElementById("best");
-		bestof.innerHTML = "Best of " + (ft * 2 - 1);
+	ft = ((ft - 1) % 3) + 2;
+	let bestof = document.getElementById("best");
+	bestof.innerHTML = "Best of " + (ft * 2 - 1);
+	let bestof2 = document.getElementById("bestoption");
+	bestof2.innerHTML = "Best of [" + (ft * 2 - 1) + "]";
+}
+
+function togglepermaban(){
+	if(!permbanning){
+		permbanning = true;
+		let toggletext = document.getElementById("permban");
+		toggletext.innerHTML = "Turn off permabanning";
+		let instructions = document.getElementById("instructions");
+		instructions.style.display = "none";
+	}else{
+		permbanning = false;
+		let toggletext = document.getElementById("permban");
+		toggletext.innerHTML = "Toggle permabanned stages";
+		let instructions = document.getElementById("instructions");
+		instructions.style.display = "block";
+	}
+}
+
+function permban(row, column){
+	let cell = document.getElementById("stages").getElementsByTagName("tr")[row].getElementsByTagName("td")[column]
+	if(cell.classList.contains("permabanned")){
+		cell.classList.remove("permabanned");
+	}else{
+		cell.classList.add("permabanned");
 	}
 }
 
 function updateScore(){
 	let score = document.getElementById("score");
 	score.innerHTML = "Current score: " + wins[0] + " - " + wins[1];
+}
+
+let initinput = document.getElementById("initban");
+let counterinput = document.getElementById("counterban");
+initinput.onchange = function(){
+	initialBanOrder = initinput.value;
+}
+counterinput.onchange = function(){
+	afterBanOrder = counterinput.value;
 }
 
 //finish setup
