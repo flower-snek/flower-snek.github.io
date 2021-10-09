@@ -27,6 +27,11 @@ h3{
 	cursor: pointer;
 }
 
+input {
+	background-color: #555;
+	color: #fff;
+}
+
 table{
 	margin-left: auto;
 	margin-right: auto;

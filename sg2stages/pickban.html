@@ -6,7 +6,7 @@
 	</head>
 	<body>
 		<h1> SG2 STAGE SELECT </h1>
-		<h3 id="best" onclick="togglebestof()"> Best of 3 </h3>
+		<h3 id="first"> First to 3 </h3>
 		<h3 id="score"> Current score: 0 - 0 </h3>
 		<table id="stages">
 			<tr>
@@ -47,9 +47,9 @@
 		<div id="options"> 
 			<h3> Options </h3>
 			<p class = "clickable" id="funntoggler" onclick="funntoggle()">Toggle mode: Funn</p>
-			<p class = "clickable" id="bestoption" onclick="togglebestof()"> Best of [3] </p>
+			<p id="bestoption"> First to <input id="ftx" value="3" size="1"></p>
 			<div id="funn">
-				<p> Ban count: <input id="funncount" value="1" size="3"></p>
+				<p> Ban count: <input id="funncount" value="1" size="1"></p>
 			</div>
 			<div id="gunn" >
 				<p> Ban orders: <input id="initban" value="1221" size="5">, then <input id="counterban" value="3" size="5"></p>

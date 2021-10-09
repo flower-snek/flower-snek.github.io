@@ -302,13 +302,15 @@ function resetBans(){
 	}
 }
 
+/*
 function togglebestof(){
-	ft = ((ft - 1) % 3) + 2;
+	ft = ((ft - 2) % 3) + 3;
 	let bestof = document.getElementById("best");
 	bestof.innerHTML = "Best of " + (ft * 2 - 1);
 	let bestof2 = document.getElementById("bestoption");
 	bestof2.innerHTML = "Best of [" + (ft * 2 - 1) + "]";
 }
+*/
 
 function togglepermaban(){
 	if(!permbanning){
@@ -364,11 +366,18 @@ counterinput.onchange = function(){
 
 let funninput = document.getElementById("funncount");
 funninput.onchange = function(){
-	funnBanOrder = funninput.value + funninput.value // yeah .
+	funnBanOrder = funninput.value + funninput.value; // yeah .
 }
 
-//finish setup
-initialize()
+let ftinput = document.getElementById("ftx");
+ftinput.onchange = function(){
+	ft = parseInt(ftinput.value);
+	let first = document.getElementById("first");
+	first.innerHTML = "First to " + ft;
+}
+
+//finish setup//
+initialize();
 
 function initialize(){
 	if(funn){
