@@ -105,7 +105,14 @@ td div{
 	background-color: #ee0;
 	width: 100%;
 }
-
+.amongus{
+	border: 2px solid #e00;
+	color: #222;
+}
+.amongus .txt{
+	background-color: #e00;
+	width: 100%;
+}
 
 .banned {
 	background-color: #a22;
