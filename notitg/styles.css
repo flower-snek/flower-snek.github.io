@@ -1,0 +1,49 @@
+html{
+	background-color: rgb(0, 0, 0);
+	color: #ddd;
+}
+body {
+	overflow: hidden;
+	margin: 0;
+}
+td, p{
+	font-family: Courier New, monospace;
+	font-size: 1vw;
+	line-height: 1;
+}
+
+.bg {
+	/* the background. makes the site the height of the page. */
+	height: 100%;
+}
+.the_info{
+	background-color: #222;
+	width: 98%;
+	position: relative;
+	top: 10vh;
+	padding: 1%;
+}
+.center{
+	text-align: center;
+}
+
+a:link{
+	color: #ddd;
+}
+a:visited{
+	color: #bbb;
+}
+table{
+	margin: auto;
+}
+
+td{
+	border: 1px white solid;
+	padding: 5px;
+}
+h3{
+	font-family: Courier New, monospace;
+	font-size: 1.5vw;
+	line-height: 1;
+	margin: 0.5vw;
+}
