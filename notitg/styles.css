@@ -6,6 +6,7 @@ body {
 	overflow: hidden;
 	margin: 0;
 }
+
 td, p{
 	font-family: Courier New, monospace;
 	font-size: 1vw;
@@ -25,6 +26,11 @@ td, p{
 }
 .center{
 	text-align: center;
+}
+
+.header{
+	text-align: center;
+	font-size: 1.5vw;
 }
 
 a:link{
