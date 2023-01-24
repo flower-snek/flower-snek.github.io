@@ -68,11 +68,22 @@ td, p{
 	border: 0.25vw solid var(--gray);
 	border-radius: 0.5vw;
 }
-
-.name, .down, .diff, .pack {
+.song.unknown {
+	background: var(--gray);
+	color: var(--bright1);
+}
+.unknown .info {
+	letter-spacing: 0.25em;
+	animation-name: breathing;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
+}
+.down, .diff, .pack {
 	position: absolute;
 }
-.name {
+.info {
 	/*top: 50%;
 	transform: translate(0%, -50%);*/
 	text-align: left;
@@ -128,4 +139,13 @@ h1{
 	line-height: 1;
 	margin: 0.5vw;
 	text-align: center;
+}
+
+@keyframes breathing {
+	from {
+		letter-spacing: 0.25em;
+	}
+	to {
+		letter-spacing: 0.3em;
+	}
 }
