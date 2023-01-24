@@ -1,14 +1,26 @@
+:root {
+	--bright1: #FDF7FA;
+	--bright2: #F0CDE1;
+	--bright3: #E2A3C7;
+	--dark1: #D67AB1;
+	--dark2: #9B5F88;
+	--dark2trans: #9B5F88AA;
+	--dark3: #60435F;
+	--gray: #332828;
+	--graytrans: #332828AA;
+	--black: #0D090B
+}
+
 html{
-	background-color: rgb(0, 0, 0);
-	color: #ddd;
+	background-color: var(--gray);
+	color: var(--bright2);
+	font-family: 'Signika', sans-serif;
 }
 body {
-	overflow: hidden;
 	margin: 0;
 }
 
 td, p{
-	font-family: Courier New, monospace;
 	font-size: 1vw;
 	line-height: 1;
 }
@@ -17,12 +29,16 @@ td, p{
 	/* the background. makes the site the height of the page. */
 	height: 100%;
 }
-.the_info{
-	background-color: #222;
-	width: 98%;
+#the_info{
+	background-color: var(--black);
+	width: 50%;
+	margin:auto;
 	position: relative;
-	top: 10vh;
 	padding: 1%;
+	padding-top: 10vh;
+	border-color: var(--dark2);
+	border-width: 0px 1vw 0px 1vw;
+	border-style: solid;
 }
 .center{
 	text-align: center;
@@ -32,24 +48,84 @@ td, p{
 	text-align: center;
 	font-size: 1.5vw;
 }
+.down img {
+	height: 3vh;
+}
+.song {
+	background: var(--bright3);
+	background-size: cover;
+	background-position: 50% 27%;
+	background-blend-mode: soft-light;
+	color: var(--gray);
+	position: relative;
+	width: 90%;
+	height: 10vh;
+	margin: auto;
+	
+	margin-bottom: 1vw;
+	font-size: 1.5vw;
+	padding: 0.5vw;
+	border: 0.25vw solid var(--gray);
+	border-radius: 0.5vw;
+}
+
+.name, .down, .diff, .pack {
+	position: absolute;
+}
+.name {
+	/*top: 50%;
+	transform: translate(0%, -50%);*/
+	text-align: left;
+}
+.down {
+	visibility: hidden;
+	right: 2vh;
+	top: 50%;
+	transform: translate(0%, -50%);
+}
+.diff {
+	bottom: 0%;
+}
+.pack {
+	font-style: italic;
+	font-size: 1vw;
+}
+.song:hover .down {
+	visibility: visible;
+}
 
 a:link{
-	color: #ddd;
+	color: var(--bright1);
 }
 a:visited{
-	color: #bbb;
+	color: var(--bright2);
 }
-table{
+.song a:link{
+	color: var(--gray);
+}
+.song a:visited{
+	color: var(--black);
+}
+/*table{
 	margin: auto;
 }
 
+tr{
+	position: relative;
+	width: 80%;
+	margin: auto;
+	margin-bottom: 10vw;
+	background: var(--black);
+}
 td{
-	border: 1px white solid;
+	position: absolute;
+	border-style: none;
 	padding: 5px;
 }
-h3{
-	font-family: Courier New, monospace;
-	font-size: 1.5vw;
+*/
+h1{
+	font-size: 3vw;
 	line-height: 1;
 	margin: 0.5vw;
+	text-align: center;
 }

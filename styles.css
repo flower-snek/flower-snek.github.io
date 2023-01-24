@@ -1,79 +1,80 @@
+:root {
+	--bright1: #FDF7FA;
+	--bright2: #F0CDE1;
+	--bright3: #E2A3C7;
+	--dark1: #D67AB1;
+	--dark2: #9B5F88;
+	--dark2trans: #9B5F88AA;
+	--dark3: #60435F;
+	--gray: #332828;
+	--graytrans: #332828AA;
+	--black: #0D090B
+}
+
 html{
-	background-color: rgb(0, 0, 0);
-	color: #ddd;
+	background-color: var(--black);
+	color: var(--bright2);
+	font-family: Josefin Sans, sans-serif;
 }
 body {
 	overflow: hidden;
 	margin: 0;
 }
 td, p{
-	font-family: Courier New, monospace;
 	font-size: 1vw;
-	line-height: 1;
+	line-height: 1.2;
+	margin: 0.4vw;
 }
 
 pre{
-	font-family: Courier New, monospace;
 	font-size: 1vw;
 	line-height: 1;
 }
 
 .title {
 	text-align: center;
-	font-family: Courier New, monospace;
-	font-size: 1.5vw;
-	line-height: 0.5;
-	overflow: hidden; /* Ensures the content is not revealed until the animation */
-	animation: 
-		typing 1.5s steps(66, end);
-	margin: auto;
+	font-size: 2.5vw;
+	user-select: none;
 }
 
-.the_site {
-	/* the horizontal strip */
-	background-color: #222;
+#the_site {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--dark3);
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 100%;
 	transform: translate(-50%, -50%);
+	border-radius: 50%;
 }
 .bg {
 	/* the background. makes the site the height of the page. */
 	height: 100%;
 }
 #after_text{
-	animation-delay: 1s;
 	text-align: center;
-	overflow: hidden;
-	animation-name: typing;
-	animation-duration: 4.5s;
 	margin: auto;
-	width: 0;
-	animation-fill-mode: forwards;
 }
 .after_fade{
 	animation-delay: 2s;
 	text-align: center;
 	overflow: hidden;
-	animation-name: fade;
-	animation-duration: 1s;
 	margin: auto;
-	opacity: 0;
-	animation-fill-mode: forwards;
 }
-.the_info{
-	background-color: #222;
-	width: 98%;
-	position: relative;
-	top: 10vh;
-	padding: 1%;
+
+li a:link{
+	color: var(--dark2);
+}
+li a:visited{
+	color: var(--dark3);
 }
 a:link{
-	color: #ddd;
+	color: var(--bright2);
 }
 a:visited{
-	color: #bbb;
+	color: var(--bright3);
 }
 table{
 	width: 100%;
@@ -88,29 +89,113 @@ td p{
 }
 
 h3{
-	font-family: Courier New, monospace;
 	font-size: 1.5vw;
 	line-height: 1;
 	margin: 0.5vw;
 }
+/*
 .ph {
-	color: #666; /* devil */
+	color: #666;
 }
-
+*/
+/*
 .lonks{
 	margin-top: 10px;
 }
+*/
+/* NEW STUFF */
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+#wheel {
+	user-select: none;
+	z-index: -2;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 10px solid var(--dark2trans);
+	border-radius: 50%;
+}
+ul {
+	position: absolute;
+	list-style: none;
+	top: 50%;
+	left: 50%;
+	margin: 0px;
+}
+li {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	vertical-align: middle;
+	color: var(--dark3);
+	background-color: var(--bright2);
+	border-radius: 50%;
+	border: 0.3vw solid var(--dark2);
+	font-size: 1.5vw;
 }
 
-@keyframes fade {
+h3 img {
+	height: 5vw;
+}
+
+#the_info_anim{
+	position: absolute;
+	top: 50%;
+	width: 80%;
+	height: max-content;
+	margin: 0px 10% 0px 10%;
+	background-color: var(--graytrans);
+	border: 5px solid var(--dark2);
+	animation-name: enlarge;
+	animation-delay: 0.2s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+	transform: scaleY(0) translate(0%, -50%);
+	border-radius: 3vw;
+}
+#the_info{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	top: 50%;
+	overflow: clip;
+	height: 100%;
+	position: relative;
+	opacity:0;
+	padding: 3vw;
+	border-radius: 2vw;
+	color: var(--bright1);
+	/*transform: translate(0%, -50%);*/
+	animation-name: text;
+	animation-delay: 0.4s;
+	animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
+}
+#socials {
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	text-align: center;
+}
+@keyframes enlarge {
 	from {
-		opacity: 0
+		transform: scaleY(0) translate(0%, -50%);
 	}
 	to {
-		opacity: 100%
+		transform: scaleY(1) translate(0%, -50%);
+	}
+}
+@keyframes text {
+	from {
+		opacity:0
+	}
+	to {
+		opacity:1
 	}
 }
