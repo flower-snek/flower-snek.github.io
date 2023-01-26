@@ -1,14 +1,16 @@
+var height = Math.max(innerHeight, document.body.clientHeight);
+
 var canvas = function(p){
 	var dots = [];
 	p.setup = function(){
-		p.createCanvas(innerWidth, innerHeight);
+		p.createCanvas(innerWidth, height);
 		// p.background(13, 9, 11);
 	}
 	p.draw = function(){
 		p.background(13, 9, 11);
 		// dot object will be an array with x, y, z, vel
 		for(var i = 0; i < 3; i++){
-			dots.push([Math.random() * innerWidth, Math.random() * -innerHeight*0.1, Math.random() * 10, 0]);
+			dots.push([Math.random() * innerWidth, Math.random() * -height*0.1, Math.random() * 10, 0]);
 		}
 		for(var i = dots.length-1; i >= 0; i--){
 			var thisdot = dots[i];
@@ -24,12 +26,13 @@ var canvas = function(p){
 			thisdot[1] += thisdot[3];
 			thisdot[3] += 1.5 - thisdot[2]*0.1
 			thisdot[3] *= 0.95;
-			if(thisdot[1] > innerHeight*1.5) dots.splice(i, 1);
+			if(thisdot[1] > height*1.5) dots.splice(i, 1);
 			//console.log(thisdot[1]);
 		}
 	}
 	p.windowResized = function() {
-	  p.resizeCanvas(innerWidth, innerHeight);
+	  height = Math.max(innerHeight, document.body.clientHeight);
+	  p.resizeCanvas(innerWidth, height);
 	}
 }
 new p5(canvas, 'bg');

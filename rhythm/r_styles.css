@@ -1,0 +1,86 @@
+:root {
+	--bright1: #FDF7FA;
+	--bright2: #F0CDE1;
+	--bright3: #E2A3C7;
+	--dark1: #D67AB1;
+	--dark2: #9B5F88;
+	--dark2trans: #9B5F88AA;
+	--dark3: #60435F;
+	--gray: #332828;
+	--graytrans: #332828AA;
+	--black: #0D090B
+}
+
+html{
+	background-color: var(--black);
+	color: var(--bright2);
+	font-family: 'Signika', sans-serif;
+}
+body {
+	margin: 0;
+	overflow-x: hidden;
+}
+
+li, p{
+	font-size: 20px;
+	line-height: 1.2;
+}
+
+.bg {
+	/* the background. makes the site the height of the page. */
+	background-color: var(--graytrans);
+	height: 100%;
+}
+#the_info{
+	background-color: var(--black);
+	width: 50%;
+	margin:auto;
+	padding: 3vh;
+	padding-top: 10vh;
+	position: relative;
+	top: 0%;
+	border-color: var(--dark2);
+	border-width: 0px 1vw 0px 1vw;
+	border-style: solid;
+	min-height: 87vh;
+}
+.center{
+	text-align: center;
+}
+
+a:link{
+	color: var(--bright1);
+}
+a:visited{
+	color: var(--bright2);
+}
+h1{
+	font-size: 54px;
+	line-height: 1;
+	margin: 0.5vw;
+	text-align: center;
+}
+
+h3{
+	font-size: 28px;
+	line-height: 1;
+	margin: 0.5vw;
+}
+canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 99%;
+	z-index: -5;
+}
+.inc {
+	color: var(--bright3);
+}
+.com {
+	color: var(--dark2);
+	text-decoration: line-through;
+	font-size: 18px;
+}
+p a {
+	font-size: 24px;
+}

@@ -12,21 +12,23 @@
 }
 
 html{
-	background-color: var(--gray);
+	background-color: var(--black);
 	color: var(--bright2);
 	font-family: 'Signika', sans-serif;
 }
 body {
 	margin: 0;
+	overflow-x: hidden;
 }
 
 td, p{
-	font-size: 1vw;
-	line-height: 1;
+	font-size: 18px;
+	line-height: 1.2;
 }
 
 .bg {
 	/* the background. makes the site the height of the page. */
+	background-color: var(--graytrans);
 	height: 100%;
 }
 #the_info{
@@ -34,7 +36,7 @@ td, p{
 	width: 50%;
 	margin:auto;
 	position: relative;
-	padding: 1%;
+	padding: 3vh;
 	padding-top: 10vh;
 	border-color: var(--dark2);
 	border-width: 0px 1vw 0px 1vw;
@@ -135,10 +137,18 @@ td{
 }
 */
 h1{
-	font-size: 3vw;
+	font-size: 54px;
 	line-height: 1;
 	margin: 0.5vw;
 	text-align: center;
+}
+
+canvas {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 99%;
+	z-index: -5;
 }
 
 @keyframes breathing {

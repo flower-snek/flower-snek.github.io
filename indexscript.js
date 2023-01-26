@@ -12,8 +12,7 @@ var prev_ang2 = 0;
 var mang = 0; // mangoafterdawn reference !!
 var start_ang = 0;
 var mdown = 0;
-var ang_vel = Math.random() * 0.2 - 0.1;
-ang_vel += Math.sign(ang_vel) * 0.05;
+var ang_vel = 0.1;
 var on_ring = false;
 
 var updateWheelPos = function(){
