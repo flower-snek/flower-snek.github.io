@@ -1,5 +1,6 @@
 
 const note_size = 72
+const maxline = Math.floor((innerWidth*0.8)/note_size)
 
 let parent = document.getElementById("the_info");
 let note_objects = document.getElementsByClassName("p_notes");
@@ -21,8 +22,8 @@ let letter2number = function(txt){
 
 let sketch_generator = function(nts){ // i have like 8 different things called notes i dont know how to name variables
 	return (s) => {
-		let height = note_size;
-		let width = note_size * nts.length;
+		let height = note_size * Math.ceil((nts.length)/maxline);
+		let width = note_size * Math.min(nts.length, maxline);
 		// let note_order = notes;
 		s.setup = function() {
 			what = s.createCanvas(width, height);
@@ -30,7 +31,6 @@ let sketch_generator = function(nts){ // i have like 8 different things called n
 			s.rectMode(s.CENTER);
 			what.class("notBG")
 			
-			let cy = note_size/2
 			let cs = note_size * 7/8
 			
 			for(let i = 0; i < nts.length; i++){
@@ -38,7 +38,10 @@ let sketch_generator = function(nts){ // i have like 8 different things called n
 				if(n != "-"){
 					// draw bg square
 					s.fill(20)
-					let cx = note_size/2 + note_size*i
+					let bx = i % maxline
+					let by = Math.floor(i / maxline)
+					let cx = note_size/2 + note_size*bx
+					let cy = note_size/2 + note_size*by
 					
 					s.rect(cx, cy, cs, cs)
 					s.fill("#00afff")
