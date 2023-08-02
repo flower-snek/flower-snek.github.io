@@ -34,7 +34,7 @@ let sketch_generator = function(nts){ // i have like 8 different things called n
 			let cs = note_size * 7/8
 			
 			for(let i = 0; i < nts.length; i++){
-				n = nts[i];
+				n = nts[i].n;
 				if(n != "-"){
 					// draw bg square
 					s.fill(20)
@@ -42,9 +42,9 @@ let sketch_generator = function(nts){ // i have like 8 different things called n
 					let by = Math.floor(i / maxline)
 					let cx = note_size/2 + note_size*bx
 					let cy = note_size/2 + note_size*by
-					
+					// console.log(nts[i])
 					s.rect(cx, cy, cs, cs)
-					s.fill("#00afff")
+					s.fill(nts[i].col)
 					for(let j = 0; j < n.length; j++){
 						let c = n.charAt(j)
 						//if(c == "!"){
@@ -65,24 +65,52 @@ let sketch_generator = function(nts){ // i have like 8 different things called n
 let interpret_pattern = function(txt){
 	txt = letter2number(txt)
 	let pattern = [];
+	let this_time = {
+		n: "",
+		col: ""
+	}
+	let pause = false;
 	for(let i = 0; i < txt.length; i++){
-		let obj = txt.charAt(i);
-		
-		let this_time = ""
-		if(obj == "["){
-			// we got a chord. loop time!
-			i++
-			obj = txt.charAt(i);
-			while(obj != "]" && i < txt.length) {
-				this_time = this_time + obj;
-				i++
-				obj = txt.charAt(i);
-			}
+		let skip = false;
+		let c = txt.charAt(i);
+		if(c == "["){
+			pause = true
+		} else if(c == "]"){
+			pause = false
+		} else if(c == "!"){
+			this_time.col = "#ff0000"
+			skip = true;
+		} else if(c == "?"){
+			this_time.col = "#ffff00"
+			skip = true;
+		} else if(c == "^"){
+			this_time.col = "#00ff00"
+			skip = true;
 		} else {
-			this_time = obj;
+			this_time.n += c;
 		}
+		
+		if(!pause && !skip){
+			// set color if not already set
+			if(this_time.col == ""){
+				this_time.col = "#ff0077";
+				if(this_time.n.length == 1){
+					this_time.col = "#00afff";
+				}
+			}
+			// console.log(this_time)
+			pattern.push(this_time);
+			
+			this_time = {
+				n: "",
+				col: ""
+			}
+		}
+	}
+	if(pause){ // you forgot to put either a ] or something after a color indicator
 		pattern.push(this_time);
 	}
+	
 	// console.log(pattern);
 	return pattern;
 }
