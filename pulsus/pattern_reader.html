@@ -11,7 +11,14 @@
 	<div class="bg">
 		<div id="the_info">
 			<p>put your pattern here, like this</p>
-			<input id="p_in" type="text" placeholder="1-[47]-2-[58]-3-[69]-1^2?6!9"><input id="p_bu" type="button" value="generate" onclick="create_pattern()">
+			<input id="p_in" type="text" placeholder="1-[47]-2-[58]-3-[69]-1^2?6!9">
+			<p>also pick some colors (hexcodes)</p>
+			<input class="p_col" type="text" value="00afff"> - base<br>
+			<input class="p_col" type="text" value="ff2277"> - chords<br>
+			<input class="p_col" type="text" value="ff2222"> - negative (!)<br>
+			<input class="p_col" type="text" value="ffcc22"> - neutral (?)<br>
+			<input class="p_col" type="text" value="22ff66"> - positive (^)<br>
+			<input id="p_bu" type="button" value="generate" onclick="create_pattern()">
 			<div id="below"></div>
 		</div>
 	</div>
