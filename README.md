@@ -1,0 +1,1 @@
+Frankly I don't know why you're reading this, but hi. I've worked on this site on and off for a few years now, it's pretty much just a sandbox for my HTML stuff. The front page is way overengineered and probably objectively should be changed but I had fun making it.
